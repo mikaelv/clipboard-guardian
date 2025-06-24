@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
             isInternalCopy = true;
             
             if (shouldBlockCopy()) {
-                await vscode.env.clipboard.writeText('');
+                // Don't write to system clipboard when copy blocking is enabled
                 vscode.window.showWarningMessage('Copy to external clipboard blocked by Clipboard Guardian');
             } else {
                 await vscode.env.clipboard.writeText(selectedText);
@@ -46,17 +46,15 @@ export function activate(context: vscode.ExtensionContext) {
             internalClipboard = selectedText;
             isInternalCopy = true;
             
+            await editor.edit(editBuilder => {
+                editBuilder.delete(selection);
+            });
+            
             if (shouldBlockCopy()) {
-                await vscode.env.clipboard.writeText('');
-                await editor.edit(editBuilder => {
-                    editBuilder.delete(selection);
-                });
+                // Don't write to system clipboard when copy blocking is enabled
                 vscode.window.showWarningMessage('Cut to external clipboard blocked by Clipboard Guardian');
             } else {
                 await vscode.env.clipboard.writeText(selectedText);
-                await editor.edit(editBuilder => {
-                    editBuilder.delete(selection);
-                });
             }
         }
     });
@@ -77,13 +75,22 @@ class ClipboardGuardianPasteEditProvider implements vscode.DocumentPasteEditProv
             return undefined;
         }
 
+        // If we have internal clipboard content and copy blocking is enabled, use internal clipboard
+        if (isInternalCopy && internalClipboard && shouldBlockCopy()) {
+            isInternalCopy = false;
+            const edit = new vscode.DocumentPasteEdit(internalClipboard, 'Clipboard Guardian: Internal paste', vscode.DocumentDropOrPasteEditKind.Empty);
+            return [edit];
+        }
+
         const clipboardText = await vscode.env.clipboard.readText();
         
+        // Allow paste if it matches our internal clipboard (copy blocking disabled case)
         if (isInternalCopy && internalClipboard === clipboardText) {
             isInternalCopy = false;
             return undefined;
         }
 
+        // Block external pastes
         if (clipboardText && clipboardText !== internalClipboard) {
             vscode.window.showWarningMessage('External paste blocked by Clipboard Guardian');
             const edit = new vscode.DocumentPasteEdit('', 'Clipboard Guardian: External paste blocked', vscode.DocumentDropOrPasteEditKind.Empty);
