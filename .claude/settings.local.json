@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run compile:*)",
+      "Bash(npm install)",
+      "Bash(npx vsce:*)",
+      "Bash(grep:*)"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "clipboard-guardian",
+  "displayName": "Clipboard Guardian",
+  "description": "Blocks pasting from external sources and copying to external destinations",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Clipboard Guardian",
+      "properties": {
+        "clipboardGuardian.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable blocking of external paste operations"
+        },
+        "clipboardGuardian.blockCopy": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable blocking of copy operations to external destinations"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  }
+}
