@@ -15,7 +15,7 @@
     "configuration": {
       "title": "Clipboard Guardian",
       "properties": {
-        "clipboardGuardian.enabled": {
+        "clipboardGuardian.blockPaste": {
           "type": "boolean",
           "default": true,
           "description": "Enable blocking of external paste operations"
