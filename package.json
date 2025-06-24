@@ -3,6 +3,7 @@
   "displayName": "Clipboard Guardian",
   "description": "Blocks pasting from external sources and copying to external destinations",
   "version": "1.0.0",
+  "publisher": "Mikael Valot",
   "engines": {
     "vscode": "^1.80.0"
   },

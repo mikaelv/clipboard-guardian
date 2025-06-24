@@ -19,6 +19,14 @@ A VSCode extension that protects code integrity by blocking external clipboard o
 - **Learning reinforcement**: Encourages students to type code manually, improving retention
 - **Academic honesty**: Supports institutional policies against unauthorized code assistance
 
+## 💼 Additional Use Cases
+
+- **Security-sensitive environments**: Prevent accidental code leaks
+- **Corporate compliance**: Meet data loss prevention requirements  
+- **Focus enhancement**: Avoid external distractions while coding
+- **Code protection**: Keep proprietary code within the development environment
+
+
 ## 🚀 Installation
 
 1. Download the latest `clipboard-guardian-x.x.x.vsix` file
@@ -45,13 +53,6 @@ When you try to:
 - **Paste from external source**: Shows warning message and blocks the operation
 - **Copy to external clipboard**: Optionally blocks and shows notification
 - **Copy/paste within VSCode**: Works normally without interference
-
-## 💼 Additional Use Cases
-
-- **Security-sensitive environments**: Prevent accidental code leaks
-- **Corporate compliance**: Meet data loss prevention requirements  
-- **Focus enhancement**: Avoid external distractions while coding
-- **Code protection**: Keep proprietary code within the development environment
 
 ## 🔧 Troubleshooting
 
